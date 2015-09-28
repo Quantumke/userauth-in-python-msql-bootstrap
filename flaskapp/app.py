@@ -39,9 +39,22 @@ app.config['MYSQL_DATABASE_PASSWORD'] = 'master12!'
 app.config['MYSQL_DATABASE_DB'] = 'BucketList'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
+    #establishing a connection
+conn = mysql.connect()
+cursor = conn.cursor()
+_hashed_password = generate_password_hash(_password)
+cursor.callproc('sp_createUser',(_name,_email,_hashed_password))
+data = cursor.fetchall()
+
+if len(data) is 0:
+                conn.commit()
+                return json.dumps({'message':'User created successfully !'})
+else:             
+                 return json.dumps({'error':str(data[0])})       
+else:
+                 return json.dumps({'html':'<span>Enter the required fields</span>'})
+
     
-    
-if __name__ == "__main__":
-    app.run()
-    
-    
+     
+			
+			
