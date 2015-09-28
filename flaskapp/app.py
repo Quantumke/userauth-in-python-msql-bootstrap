@@ -1,7 +1,10 @@
 #import the fask module
 from flask import Flask, render_template, json, request
+from flask.ext.mysql import MySQL
 app = Flask(__name__)
+
 #define the basic route
+
  #import render template
 
     #modified the main method to return the renderd template
@@ -27,6 +30,16 @@ def signUp():
         return json.dumps({'html':'<span>All fields good !!</span>'})
     else:
         return json.dumps({'html':'<span>Enter the required fields</span>'})
+    
+    app = Flask(_name_)
+    #DB CONFIG
+    mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'master12!'
+app.config['MYSQL_DATABASE_DB'] = 'BucketList'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
+    
     
 if __name__ == "__main__":
     app.run()
